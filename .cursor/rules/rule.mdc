@@ -1,0 +1,254 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+RMOS Front-End Challenge
+Amaç:
+Bu teknik değerlendirme, front-end geliştirme yeteneklerinizi ve modern web
+teknolojilerine olan hakimiyetinizi ölçmeyi hedeflemektedir. Aşağıda belirtilen görevleri
+tamamlamanız beklenmektedir. "Bonus Görevler" kısmındaki maddeler zorunlu değildir
+ancak tamamlanmaları, teknik yeterliliğinizin daha kapsamlı değerlendirilmesine katkı
+sağlar.
+
+Genel Kurallar:
+● Teknoloji Seçimi: Proje, Next.js framework’ü kullanılarak ve TypeScript diliyle
+geliştirilmelidir.
+● Kod Kalitesi: Kodunuzun ts-standard kurallarına uygun, modüler ve okunabilir
+olması beklenmektedir.
+● State Yönetimi: Zustand gibi modern state yönetim araçları tercih edilebilir.
+● API İstekleri: Axios kütüphanesi kullanılmalıdır.
+● Veri Yönetimi: React Query ile sunucudan veri çekimi ve yönetimi yapılmalıdır.
+● Tasarım: Mantine UI veya Shadcn UI, Tailwind CSS kullanılabilir.
+● Performans: useState, useEffect, useMemo, useCallback gibi React Hook'ları ve
+memoization teknikleri kullanılmalıdır.
+
+Bonus Görevler:
+● Next.js App Router kullanımı
+● Vercel üzerinde yayınlama
+● Error Boundary ile kullanıcı dostu hata ekranları
+● react-hook-form + zod ile form doğrulama
+● Lokalizasyon (çoklu dil desteği)
+● README dosyasında klasör yapısı ve tercih edilen yapıların açıklaması (folder
+structure düzeneği)
+
+Değerlendirme Süreci:
+Tamamladığınız proje teknik mülakat sırasında detaylı olarak incelenecek; çözümünüz ve
+tercih ettiğiniz teknolojiler hakkında geri bildirim verilecektir.
+
+Challenge İçeriği
+Bu coding challenge’da, TypeScript ve Next.js kullanarak bir dashboard
+uygulaması geliştirmeniz beklenmektedir. Proje toplamda 4 farklı API
+endpoint'i içermekte olup, bu endpoint'ler üzerinden authentication ve
+CRUD işlemleri yapılacaktır. API işlemleri için gerekli Postman Collection
+dosyası ekte paylaşılmıştır.
+Ekranlar:
+1. Login Ekranı
+2. Forecast Ekranı
+3. Blacklist Ekranı
+Tasarımda kendi yaratıcılığınızı katmanız bekleniyor. Birebir görsel kopya
+zorunlu değildir, ancak tasarımlarınızda responsive design prensiplerine
+uymak önemlidir.
+
+Postman Collection:
+Mail ekte bulabilirsiniz.
+
+Aşamalar
+1. Aşama (Login):
+○ Kullanıcı adı ve şifre ile token alınması.
+○ Postman Collection içinde verilen login endpoint'i kullanarak
+kullanıcı doğrulaması yapılmalıdır.
+
+2. Aşama (Forecast):
+○ Endpoint:
+https://frontapi.rmosweb.com/api/Procedure/StpRmforKlasik_2
+○ Bu endpoint'ten gelen verinin tablo ve grafiksel olarak ekranda
+gösterilmesi beklenmektedir.
+
+3. Aşama (Blacklist):
+○ Endpoint:
+https://frontapi.rmosweb.com/api/Kara/Getir_Kod
+○ Verilerin listelenmesi, seçilen kaydın detay bilgilerinin yüklenmesi
+ve yeni kayıt eklenmesi (CRUD işlemleri).
+
+4. Aşama (Blacklist CRUD):
+○ Endpoint:
+https://frontapi.rmosweb.com/api/Kara/Ekle
+○ Yeni kişi kaydı eklenmesi ve CRUD işlemlerinin yapılması.
+
+Projeyi node_modules hariç olacak şekilde zip dosyası olarak
+merkez@rmosyazilim.com adresine gönderebilir veya GitHub’da
+paylaşarak linki iletebilirsiniz. Gönderdiğinizde LinkedIn üzerinden mesaj
+yoluyla bilgilendirmeyi unutmayınız.
+İyi çalışmalar dileriz!
+
+RMOS Case.postman_collection.json: {
+	"info": {
+		"_postman_id": "ffdbf8dc-405c-4206-ba79-3246d3903efe",
+		"name": "RMOS Case",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33740205"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"const token = pm.response.json();",
+							"",
+							"pm.collectionVariables.set(\"token\", token);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"yunus@test.com\",\n    \"password\": \"yunus\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{service}}/security/createToken"
+			},
+			"response": []
+		},
+		{
+			"name": "StpRmforKlasik_2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"db_Id\": 9,\n    \"xRez_Sirket\": 9,\n    \"xBas_Tar\": \"2024-06-01\",\n    \"xBit_Tar\": \"2024-06-10\",\n    \"xtip\": 1,\n    \"kon1\": \"ALL\",\n    \"kon2\": \"BB\",\n    \"xchkFis_Fazla_otel_10\": 0,\n    \"bas_Yil\": 2022,\n    \"bit_Yil\": 2022,\n    \"fisrci_Kapalioda_10\": 0,\n    \"xRez_C_W\": \"C\",\n    \"xSistem_Tarihi\": \"2024-01-01\",\n    \"xAlis_Tarihi\": \"2024-01-01\",\n    \"sistem_Bas1\": \"2020-01-01\",\n    \"sistem_Bit1\": \"2029-01-01\",\n    \"pmdahil_10\": 0,\n    \"tip_1\": \"001\",\n    \"xFis_Bela_tutar_10\": 0,\n    \"trace_Dus_10\": 0,\n    \"cev_01\": null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{front_service}}/Procedure/StpRmforKlasik_2"
+			},
+			"response": []
+		},
+		{
+			"name": "Kara_Getir",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"db_Id\": 9,\n    \"Adi\": \"ALL?\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{front_service}}/Kara/Getir_Kod"
+			},
+			"response": []
+		},
+		{
+			"name": "Kara_Ekle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"db_Id\": 9,\n    \"Id\": 0, //  Id alanı “0” gönderilirse yeni kayıt işlemi gerçekleştirilir. Herhangi bir değer verilmesi durumunda o Id’ye bağlı kayıt güncellenir.\n    \"Adi\": \"Rmos Deneme\",\n    \"Soy\": \"Rmos Try\",\n    \"Aciklama\": \"Deneme Kayıt\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{front_service}}/Kara/Ekle",
+				"description": "Id alanı “0” gönderilirse yeni kayıt işlemi gerçekleştirilir. Herhangi bir değer verilmesi durumunda o Id’ye bağlı kayıt güncellenir."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "service",
+			"value": "https://service.rmosweb.com",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "front_service",
+			"value": "https://frontapi.rmosweb.com/api",
+			"type": "string"
+		}
+	]
+
+}
