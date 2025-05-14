@@ -3,14 +3,6 @@ description:
 globs: 
 alwaysApply: true
 ---
-RMOS Front-End Challenge
-Amaç:
-Bu teknik değerlendirme, front-end geliştirme yeteneklerinizi ve modern web
-teknolojilerine olan hakimiyetinizi ölçmeyi hedeflemektedir. Aşağıda belirtilen görevleri
-tamamlamanız beklenmektedir. "Bonus Görevler" kısmındaki maddeler zorunlu değildir
-ancak tamamlanmaları, teknik yeterliliğinizin daha kapsamlı değerlendirilmesine katkı
-sağlar.
-
 Genel Kurallar:
 ● Teknoloji Seçimi: Proje, Next.js framework’ü kullanılarak ve TypeScript diliyle
 geliştirilmelidir.
@@ -22,8 +14,6 @@ olması beklenmektedir.
 ● Tasarım: Mantine UI veya Shadcn UI, Tailwind CSS kullanılabilir.
 ● Performans: useState, useEffect, useMemo, useCallback gibi React Hook'ları ve
 memoization teknikleri kullanılmalıdır.
-
-Bonus Görevler:
 ● Next.js App Router kullanımı
 ● Vercel üzerinde yayınlama
 ● Error Boundary ile kullanıcı dostu hata ekranları
@@ -31,10 +21,13 @@ Bonus Görevler:
 ● Lokalizasyon (çoklu dil desteği)
 ● README dosyasında klasör yapısı ve tercih edilen yapıların açıklaması (folder
 structure düzeneği)
+● Web performansını artırmak için resim optimizasyonu (WebP, lazy loading) ve Next.js ile route bazlı code splitting gibi teknikleri uygulamak.
+● React.memo, useMemo, useCallback gibi optimizasyon yöntemleri ile gereksiz render’ları önlemek.
+● React.lazy() ve Suspense ile code splitting yaparak yükleme sürelerini kısaltmak.
+● Error boundary kullanarak hata yakalama ve kullanıcı dostu hata mesajları sunmak.
+● Next.js Server Components (RSC) ve Server-Side Rendering (SSR) kullanarak hızlı ve ölçeklenebilir uygulamalar geliştirmek.
+● Fonksiyonlarda erken hata yakalama (early return) prensipleri ile okunabilirliği artırmak ve hata yönetimini sağlamak.
 
-Değerlendirme Süreci:
-Tamamladığınız proje teknik mülakat sırasında detaylı olarak incelenecek; çözümünüz ve
-tercih ettiğiniz teknolojiler hakkında geri bildirim verilecektir.
 
 Challenge İçeriği
 Bu coding challenge’da, TypeScript ve Next.js kullanarak bir dashboard

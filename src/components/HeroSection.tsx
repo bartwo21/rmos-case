@@ -12,7 +12,7 @@ export const HeroSection = () => {
         Awesome Dashboard with powerful tools for your business. Easily manage
         your business with our tools and make your life easier.
       </p>
-      <Link href="/dashboard">
+      <Link href="/forecast">
         <Button className="py-6 mt-20 w-full" variant="default">
           Get Started
         </Button>
