@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/layout/Header";
+import { ErrorBoundaryProvider } from "@/components/ErrorBoundary";
+import Footer from "@/components/layout/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +19,7 @@ export const metadata: Metadata = {
   title: "Rmos - Frontend Case Study",
   description: "Rmos Dashboard",
 };
-// https://www.rmosyazilim.com/img/logo.png
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -25,9 +28,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        {children}
+        <ErrorBoundaryProvider>
+          <Header />
+          <main className="flex-1 flex flex-col">{children}</main>
+          <Footer />
+        </ErrorBoundaryProvider>
       </body>
     </html>
   );
