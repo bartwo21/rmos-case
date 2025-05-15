@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useEffect } from "react";
-import {
-  forecastService,
-  ForecastRequestData,
-} from "@/services/forecastService";
-import { useQuery } from "@tanstack/react-query";
+import React, { Suspense, lazy } from "react";
+import { Loading } from "@/components/ui/loading";
+import { ForecastRequestData } from "@/types/forecast";
+
+const ForecastData = lazy(() => import("./components/ForecastData"));
 
 const defaultForecastRequest: ForecastRequestData = {
   db_Id: 9,
@@ -32,45 +31,13 @@ const defaultForecastRequest: ForecastRequestData = {
 };
 
 export default function ForecastPage() {
-  const forecastQuery = useQuery({
-    queryKey: ["forecast"],
-    queryFn: () => forecastService.getForecastData(defaultForecastRequest),
-  });
-
-  useEffect(() => {
-    if (forecastQuery.data) {
-      console.log("Forecast Data:", forecastQuery.data.data);
-    }
-    if (forecastQuery.error) {
-      console.error("Forecast Error:", forecastQuery.error);
-    }
-  }, [forecastQuery.data, forecastQuery.error]);
-
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-6">Forecast</h1>
+    <div className="p-8 mx-auto w-full">
+      <h1 className="text-2xl font-bold mb-6 w-full text-left">Forecast</h1>
 
-      {forecastQuery.isLoading && (
-        <div className="text-center">
-          <p>Veriler yükleniyor...</p>
-        </div>
-      )}
-
-      {forecastQuery.isError && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-          <p>Veri yüklenirken bir hata oluştu. Lütfen konsolu kontrol edin.</p>
-        </div>
-      )}
-
-      {forecastQuery.isSuccess && (
-        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-          <p>Veriler başarıyla yüklendi ve konsola yazdırıldı.</p>
-          <p className="text-sm text-gray-600 mt-2">
-            Verileri görmek için tarayıcı konsolunu açın (F12 veya
-            Ctrl+Shift+I).
-          </p>
-        </div>
-      )}
+      <Suspense fallback={<Loading message="Loading Forecast..." />}>
+        <ForecastData requestData={defaultForecastRequest} />
+      </Suspense>
     </div>
   );
 }
