@@ -30,7 +30,7 @@ const defaultForecastRequest: ForecastRequestData = {
   cev_01: null,
 };
 
-export default function ForecastPage() {
+export default function page() {
   return (
     <div className="p-8 mx-auto w-full">
       <h1 className="text-2xl font-bold mb-6 w-full text-left">Forecast</h1>

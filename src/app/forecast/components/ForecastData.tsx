@@ -5,12 +5,12 @@ import { useQuery } from "@tanstack/react-query";
 import { forecastService } from "@/services/forecastService";
 import { Loading } from "@/components/ui/loading";
 import { ForecastDataProps, ForecastResponse } from "@/types/forecast";
-import { createColumns } from "./Columns";
-import { DataTable } from "./dataTable";
+import { createColumns } from "./ForecastColumns";
+import { DataTable } from "@/components/data-table/DataTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ForecastChart from "./ForecastChart";
 
-const ForecastData: React.FC<ForecastDataProps> = ({ requestData }) => {
+export default function ForecastData({ requestData }: ForecastDataProps) {
   const [activeTab, setActiveTab] = useState("current");
 
   const forecastQuery = useQuery<ForecastResponse>({
@@ -90,6 +90,4 @@ const ForecastData: React.FC<ForecastDataProps> = ({ requestData }) => {
       </Tabs>
     </div>
   );
-};
-
-export default ForecastData;
+}

@@ -5,14 +5,20 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { useAuthStore } from "@/store/authStore";
 import { useRouter, usePathname } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const token = useAuthStore((state) => state.token);
   const logout = useAuthStore((state) => state.logout);
+  const [hasHydrated, setHasHydrated] = useState(false);
 
-  const isLoggedIn = !!token;
+  useEffect(() => {
+    setHasHydrated(true);
+  }, []);
+
+  const isLoggedIn = hasHydrated && !!token;
 
   const handleLogout = () => {
     logout();
@@ -60,13 +66,15 @@ export default function Navbar() {
       </div>
 
       <div>
-        {isLoggedIn ? (
-          <Button onClick={handleLogout}>Çıkış Yap</Button>
-        ) : (
-          <Link href="/login">
-            <Button>Giriş Yap</Button>
-          </Link>
-        )}
+        {hasHydrated ? (
+          isLoggedIn ? (
+            <Button onClick={handleLogout}>Sign out</Button>
+          ) : (
+            <Link href="/login">
+              <Button>Sign in</Button>
+            </Link>
+          )
+        ) : null}
       </div>
     </nav>
   );

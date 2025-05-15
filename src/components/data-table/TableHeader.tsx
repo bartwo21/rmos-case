@@ -1,7 +1,6 @@
 "use client";
 
-import { Table } from "@tanstack/react-table";
-import { flexRender } from "@tanstack/react-table";
+import { Table, flexRender } from "@tanstack/react-table";
 
 interface TableHeaderProps<TData> {
   table: Table<TData>;

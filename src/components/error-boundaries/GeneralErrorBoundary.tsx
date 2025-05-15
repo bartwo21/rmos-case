@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { ErrorBoundary as ReactErrorBoundary } from "react-error-boundary";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 function ErrorFallback({
   error,
@@ -63,7 +63,7 @@ export function ErrorBoundaryProvider({
         window.location.reload();
       }}
       onError={(error: Error) => {
-        console.error("Yakalanan hata:", error);
+        console.error("Login error:", error);
       }}
     >
       {children}
