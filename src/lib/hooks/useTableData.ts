@@ -51,6 +51,7 @@ export function useTableData<TData, TValue>({
       columnVisibility,
       rowSelection,
     },
+    manualSorting: true,
   });
 
   useEffect(() => {
@@ -67,9 +68,26 @@ export function useTableData<TData, TValue>({
     }
   }, [table, columnVisibility, tableContainerRef.current?.offsetWidth]);
 
+  useEffect(() => {
+    if (sorting.length > 0) {
+      table.getRowModel().rows.sort((a, b) => {
+        const columnId = sorting[0].id;
+        const desc = sorting[0].desc;
+
+        const valueA = a.getValue(columnId) as string | number | Date;
+        const valueB = b.getValue(columnId) as string | number | Date;
+
+        if (valueA < valueB) return desc ? 1 : -1;
+        if (valueA > valueB) return desc ? -1 : 1;
+        return 0;
+      });
+
+      table.setColumnSizing({ ...table.getState().columnSizing });
+    }
+  }, [sorting, table.getState().pagination.pageIndex]);
+
   const columnTotals = useMemo(() => {
     const totals: Record<string, number> = {};
-
     const visibleColumns = table.getVisibleLeafColumns();
 
     table.getRowModel().rows.forEach((row) => {
@@ -116,6 +134,7 @@ export function useTableData<TData, TValue>({
     if (!printWindow) return;
 
     const visibleColumns = table.getVisibleLeafColumns();
+    const currentPageRows = table.getRowModel().rows;
 
     let htmlContent = `
       <html>
@@ -146,10 +165,10 @@ export function useTableData<TData, TValue>({
             <tbody>
     `;
 
-    data.forEach((row) => {
+    currentPageRows.forEach((row) => {
       htmlContent += "<tr>";
       visibleColumns.forEach((column) => {
-        const value = (row as Record<string, unknown>)[column.id];
+        const value = row.getValue(column.id);
         let formattedValue = "";
 
         if (typeof value === "number") {
@@ -181,11 +200,22 @@ export function useTableData<TData, TValue>({
       htmlContent += "</tr>";
     });
 
+    const pageTotals: Record<string, number> = {};
+    currentPageRows.forEach((row) => {
+      visibleColumns.forEach((column) => {
+        const value = row.getValue(column.id);
+
+        if (typeof value === "number") {
+          pageTotals[column.id] = (pageTotals[column.id] || 0) + value;
+        }
+      });
+    });
+
     htmlContent += '<tr class="total-row">';
     visibleColumns.forEach((column) => {
-      const hasTotal = columnTotals[column.id] !== undefined;
+      const hasTotal = pageTotals[column.id] !== undefined;
       const value = hasTotal
-        ? formatTotalValue(column.id, columnTotals[column.id])
+        ? formatTotalValue(column.id, pageTotals[column.id])
         : "";
       htmlContent += `<td>${value}</td>`;
     });

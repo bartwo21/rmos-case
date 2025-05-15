@@ -175,9 +175,13 @@ export function createColumns(
           return (
             <Button
               variant="ghost"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === "asc")
-              }
+              onClick={() => {
+                if (isDateColumn && !column.getIsSorted()) {
+                  column.toggleSorting(true);
+                } else {
+                  column.toggleSorting(column.getIsSorted() === "asc");
+                }
+              }}
             >
               {formatHeader(key)}
               <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -190,6 +194,7 @@ export function createColumns(
         const value = row.getValue(key);
         return formatValue(key, value as string | number | null | undefined);
       },
+      size: 50,
     };
   });
 }

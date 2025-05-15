@@ -26,5 +26,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [...protectedRoutes, ...publicRoutes],
+  matcher: ["/forecast/:path*", "/blacklist/:path*", "/login"],
 };
