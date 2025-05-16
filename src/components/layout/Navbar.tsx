@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useRouter, usePathname } from "@/i18n/navigation";
-import { locales } from "@/localizationConfig";
+import { locales } from "@/i18n/localizationConfig";
 import { Globe } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
