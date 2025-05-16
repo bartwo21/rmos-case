@@ -24,6 +24,7 @@ src/
 ├── i18n/ # Localization yapılandırması
 │ ├── navigation.ts # Next.js yönlendirme API'lerinin i18 li versiyonları
 │ ├── request.ts # API istekleri için dil yapılandırması
+│ ├── localizationConfig.ts # Localization config
 │ └── routing.ts # Rota yapılandırması için dil desteği
 │
 ├── lib/ # Yardımcı fonksiyonlar ve kütüphaneler
@@ -43,11 +44,9 @@ src/
 ├── store/ # Zustand store'ları
 │ └── authStore.ts # Kimlik doğrulama store'u
 │
-├── types/ # TypeScript type tanımlamaları
+├── types/ # Özel type tanımlamaları
 │ ├── blacklist.ts # Blacklist tipleri
 │ └── forecast.ts # Forecast tipleri
-│
-├── localizationConfig.ts # Localization config
 │
 └── middleware.ts # Next.js middleware (yönlendirme ve protected routes)
 ```
