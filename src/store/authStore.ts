@@ -6,6 +6,7 @@ interface AuthState {
   token: string | null;
   setToken: (token: string) => void;
   logout: () => void;
+  isLoading: boolean;
 }
 
 const setCookie = (token: string) => {
@@ -24,13 +25,16 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       token: null,
+      isLoading: false,
       setToken: (token) => {
         setCookie(token);
         set({ token });
       },
       logout: () => {
+        set({ isLoading: true });
         removeCookie();
         set({ token: null });
+        set({ isLoading: false });
       },
     }),
     {

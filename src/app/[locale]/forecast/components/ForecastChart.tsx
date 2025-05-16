@@ -15,6 +15,7 @@ interface ForecastChartProps {
 }
 
 const formatDate = (dateString: string): string => {
+  if (!dateString) return "";
   const dateObj = new Date(dateString);
   return dateObj.toLocaleDateString("tr-TR", {
     day: "numeric",
@@ -34,9 +35,9 @@ const formatCurrency = (value: number): string => {
 const ForecastChart: React.FC<ForecastChartProps> = ({ data }) => {
   const chartData = useMemo(() => {
     return data.slice(0, 10).map((item) => ({
-      Tarih: formatDate(item.Tarih),
-      originalDate: formatDate(item.Tarih),
-      Oda: item.Oda,
+      Tarih: formatDate(item.Tarih as string),
+      originalDate: formatDate(item.Tarih as string),
+      Oda: Number(item.Oda || 0),
     }));
   }, [data]);
 
@@ -44,14 +45,20 @@ const ForecastChart: React.FC<ForecastChartProps> = ({ data }) => {
 
   const summaryData = useMemo(() => {
     const totalYetiskin = data.reduce(
-      (sum, item) => sum + (item.Yetişkin || 0),
+      (sum, item) => sum + Number(item.Yetişkin || 0),
       0
     );
-    const totalCocuk = data.reduce((sum, item) => sum + (item.Çocuk || 0), 0);
-    const totalFree = data.reduce((sum, item) => sum + (item.Free || 0), 0);
-    const totalOda = data.reduce((sum, item) => sum + (item.Oda || 0), 0);
+    const totalCocuk = data.reduce(
+      (sum, item) => sum + Number(item.Çocuk || 0),
+      0
+    );
+    const totalFree = data.reduce(
+      (sum, item) => sum + Number(item.Free || 0),
+      0
+    );
+    const totalOda = data.reduce((sum, item) => sum + Number(item.Oda || 0), 0);
     const totalGelir = data.reduce(
-      (sum, item) => sum + (item["Forecast Gelir"] || 0),
+      (sum, item) => sum + Number(item["Forecast Gelir"] || 0),
       0
     );
 
@@ -73,36 +80,36 @@ const ForecastChart: React.FC<ForecastChartProps> = ({ data }) => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex gap-4 mb-8">
-        <div className="bg-gray-50 p-3 rounded-lg shadow-sm w-1/5">
+      <div className="flex gap-4 mb-8 flex-wrap lg:flex-nowrap">
+        <div className="bg-gray-50 p-3 rounded-lg shadow-sm lg:w-1/5 w-full text-center">
           <div className="text-gray-500 text-xs">
             {t("forecast.chart.yetiskin")}
           </div>
           <div className="text-lg font-semibold">{summaryData.yetiskin}</div>
         </div>
 
-        <div className="bg-gray-50 p-3 rounded-lg shadow-sm w-1/5">
+        <div className="bg-gray-50 p-3 rounded-lg shadow-sm lg:w-1/5 w-full text-center">
           <div className="text-gray-500 text-xs">
             {t("forecast.chart.cocuk")}
           </div>
           <div className="text-lg font-semibold">{summaryData.cocuk}</div>
         </div>
 
-        <div className="bg-gray-50 p-3 rounded-lg shadow-sm w-1/5">
+        <div className="bg-gray-50 p-3 rounded-lg shadow-sm lg:w-1/5 w-full text-center">
           <div className="text-gray-500 text-xs">
             {t("forecast.chart.free")}
           </div>
           <div className="text-lg font-semibold">{summaryData.free}</div>
         </div>
 
-        <div className="bg-gray-50 p-3 rounded-lg shadow-sm w-1/5">
+        <div className="bg-gray-50 p-3 rounded-lg shadow-sm lg:w-1/5 w-full text-center">
           <div className="text-gray-500 text-xs">
             {t("forecast.chart.totalOda")}
           </div>
           <div className="text-lg font-semibold">{summaryData.totalOda}</div>
         </div>
 
-        <div className="bg-gray-50 p-3 rounded-lg shadow-sm w-1/5">
+        <div className="bg-gray-50 p-3 rounded-lg shadow-sm lg:w-1/5 w-full text-center">
           <div className="text-gray-500 text-xs">
             {t("forecast.chart.tahminiGelir")}
           </div>
@@ -113,10 +120,10 @@ const ForecastChart: React.FC<ForecastChartProps> = ({ data }) => {
       </div>
 
       <div className="flex justify-center">
-        <div className="w-3/4 max-w-2xl">
+        <div className="lg:w-3/4 w-full max-w-2xl lg:mr-00 mr-10">
           <ChartContainer
             config={chartConfig}
-            className="min-h-[250px] w-full rounded-xl bg-background p-4"
+            className="min-h-[250px] w-full bg-background lg:p-4"
           >
             <BarChart accessibilityLayer data={chartData}>
               <CartesianGrid vertical={false} />

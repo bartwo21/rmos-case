@@ -20,12 +20,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { Plus, Edit } from "lucide-react";
 import BlacklistForm from "./BlacklistForm";
+import { useTranslations } from "next-intl";
 
 export default function BlacklistData({ requestData }: BlacklistDataProps) {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<BlacklistItem | undefined>(
     undefined
   );
+
+  const t = useTranslations();
 
   const blacklistQuery = useQuery<BlacklistResponse>({
     queryKey: ["blacklist", requestData],
@@ -51,11 +54,15 @@ export default function BlacklistData({ requestData }: BlacklistDataProps) {
   };
 
   const columns = useMemo(() => {
-    const baseColumns = createBlacklistColumns();
+    if (!blacklistQuery.data?.value) {
+      return [];
+    }
+
+    const baseColumns = createBlacklistColumns(blacklistQuery.data.value);
 
     baseColumns.push({
       id: "actions",
-      header: "İşlemler",
+      header: t("blacklist.edit"),
       cell: ({ row }) => {
         const item = row.original as BlacklistItem;
         return (
@@ -63,10 +70,10 @@ export default function BlacklistData({ requestData }: BlacklistDataProps) {
             variant="ghost"
             size="sm"
             onClick={() => handleEdit(item)}
-            className="flex items-center gap-1"
+            className="flex items-center gap-1 mx-auto"
           >
             <Edit className="h-4 w-4" />
-            <span>Düzenle</span>
+            <span>{t("blacklist.edit")}</span>
           </Button>
         );
       },
@@ -74,7 +81,7 @@ export default function BlacklistData({ requestData }: BlacklistDataProps) {
     });
 
     return baseColumns;
-  }, []);
+  }, [blacklistQuery.data?.value]);
 
   if (blacklistQuery.isLoading) {
     return <Loading />;
@@ -83,7 +90,7 @@ export default function BlacklistData({ requestData }: BlacklistDataProps) {
   if (blacklistQuery.isError) {
     return (
       <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-        <p>Error Loading Blacklist, Please try again later.</p>
+        <p>{t("blacklist.errorLoading")}</p>
       </div>
     );
   }
@@ -93,27 +100,33 @@ export default function BlacklistData({ requestData }: BlacklistDataProps) {
   if (!blacklistData?.value?.length) {
     return (
       <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
-        <p>No blacklist data.</p>
+        <p>{t("blacklist.noData")}</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <div className="flex justify-end mb-4">
-        <Button onClick={handleAddNew} className="flex items-center gap-1">
-          <Plus className="h-4 w-4" />
-          <span>Yeni Ekle</span>
+    <div className="bg-white rounded-lg shadow lg:p-6 p-3">
+      <div className="flex justify-start lg:-mb-[32px] mb-3">
+        <Button
+          onClick={handleAddNew}
+          className="flex items-center gap-1 lg:w-fit w-full"
+          size="sm"
+        >
+          <Plus />
+          <span>{t("blacklist.addNew")}</span>
         </Button>
       </div>
 
       <DataTable columns={columns} data={blacklistData.value} />
 
       <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] max-h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
-              {selectedItem ? "Kayıt Düzenle" : "Yeni Kayıt Ekle"}
+              {selectedItem
+                ? t("blacklist.editRecord")
+                : t("blacklist.addRecord")}
             </DialogTitle>
           </DialogHeader>
           <BlacklistForm

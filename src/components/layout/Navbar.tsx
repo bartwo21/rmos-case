@@ -19,12 +19,12 @@ import {
 import { locales } from "@/localizationConfig";
 import { Globe } from "lucide-react";
 import { useTranslations } from "next-intl";
+import MobileMenu from "./MobileMenu";
 
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
-  const token = useAuthStore((state) => state.token);
-  const logout = useAuthStore((state) => state.logout);
+  const { token, isLoading, logout } = useAuthStore();
   const [hasHydrated, setHasHydrated] = useState(false);
   const intlRouter = useIntlRouter();
   const intlPathname = useIntlPathname();
@@ -38,22 +38,44 @@ export default function Navbar() {
 
   const handleLogout = () => {
     logout();
-    // Force navigation to login page
     router.push("/login");
-    // Force a refresh to clear any client-side state
-    window.location.href = "/login";
   };
 
   const isActive = (path: string) => {
-    return pathname === path;
+    return intlPathname === path;
   };
 
   const handleLanguageChange = (locale: string) => {
     intlRouter.replace(intlPathname, { locale });
   };
 
+  const NavLinks = () => (
+    <>
+      {isLoggedIn && (
+        <>
+          <Link
+            href="/forecast"
+            className={`text-gray-900 hover:text-sky-500 font-medium ${
+              isActive("/forecast") ? "text-sky-500" : ""
+            }`}
+          >
+            {t("navbar.forecast")}
+          </Link>
+          <Link
+            href="/blacklist"
+            className={`text-gray-900 hover:text-sky-500 font-medium ${
+              isActive("/blacklist") ? "text-sky-500" : ""
+            }`}
+          >
+            {t("navbar.blacklist")}
+          </Link>
+        </>
+      )}
+    </>
+  );
+
   return (
-    <nav className="text-white p-4 px-40 flex justify-between items-center bg-gray-100">
+    <nav className="text-white p-4 px-4 md:px-40 flex justify-between items-center bg-gray-100">
       <div>
         <Link href="/">
           <Image
@@ -65,30 +87,11 @@ export default function Navbar() {
         </Link>
       </div>
 
-      <div className="flex items-center space-x-4">
-        {isLoggedIn && (
-          <>
-            <Link
-              href="/forecast"
-              className={`text-gray-900 hover:text-sky-500 font-medium ${
-                isActive("/forecast") ? "text-sky-500" : ""
-              }`}
-            >
-              {t("navbar.forecast")}
-            </Link>
-            <Link
-              href="/blacklist"
-              className={`text-gray-900 hover:text-sky-500 font-medium ${
-                isActive("/blacklist") ? "text-sky-500" : ""
-              }`}
-            >
-              {t("navbar.blacklist")}
-            </Link>
-          </>
-        )}
+      <div className="hidden md:flex items-center space-x-4">
+        <NavLinks />
       </div>
 
-      <div className="flex items-center space-x-4">
+      <div className="hidden md:flex items-center space-x-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
@@ -112,13 +115,27 @@ export default function Navbar() {
 
         {hasHydrated ? (
           isLoggedIn ? (
-            <Button onClick={handleLogout}>{t("navbar.signOut")}</Button>
+            <Button onClick={handleLogout} disabled={isLoading}>
+              {t("navbar.signOut")}
+            </Button>
           ) : (
             <Link href="/login">
               <Button>{t("navbar.signIn")}</Button>
             </Link>
           )
         ) : null}
+      </div>
+
+      <div className="md:hidden flex items-center">
+        <MobileMenu
+          isLoggedIn={isLoggedIn}
+          pathname={pathname}
+          handleLanguageChange={handleLanguageChange}
+          handleLogout={handleLogout}
+          NavLinks={NavLinks}
+          hasHydrated={hasHydrated}
+          isLoading={isLoading}
+        />
       </div>
     </nav>
   );

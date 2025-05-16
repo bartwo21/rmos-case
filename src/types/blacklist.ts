@@ -1,14 +1,12 @@
 export interface BlacklistRequestData {
   db_Id: number;
   Adi: string;
+  tip?: number;
 }
 
 export interface BlacklistItem {
   [key: string]: string | number | null | undefined;
   Id: number;
-  Adi: string;
-  Soy: string;
-  Aciklama: string;
 }
 
 export interface BlacklistResponse {
@@ -27,5 +25,5 @@ export interface BlacklistAddUpdateRequest {
   Id: number;
   Adi: string;
   Soy: string;
-  Aciklama: string;
+  Aciklama?: string;
 }

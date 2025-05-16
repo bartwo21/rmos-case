@@ -10,7 +10,8 @@
     "forecast": "Tahmin",
     "blacklist": "Kara Liste",
     "signIn": "Giriş Yap",
-    "signOut": "Çıkış Yap"
+    "signOut": "Çıkış Yap",
+    "menu": "Menü"
   },
   "footer": {
     "copyright": "Copyright © 2025 RMOS. Tüm hakları saklıdır."
@@ -63,6 +64,14 @@
     }
   },
   "blacklist": {
-    "title": "Kara Liste"
+    "title": "Kara Liste",
+    "edit": "Düzenle",
+    "addNew": "Yeni Ekle",
+    "noData": "Kara liste verisi bulunamadı.",
+    "errorLoading": "Kara liste yüklenirken hata oluştu, lütfen daha sonra tekrar deneyiniz.",
+    "addRecord": "Yeni Kayıt Ekle",
+    "editRecord": "Kayıt Düzenle",
+    "update": "Güncelle",
+    "add": "Ekle"
   }
 }

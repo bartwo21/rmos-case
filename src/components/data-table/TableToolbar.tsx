@@ -20,11 +20,11 @@ export default function TableToolbar<TData>({
 }: TableToolbarProps<TData>) {
   const t = useTranslations();
   return (
-    <div className="flex items-center justify-end">
-      <div className="flex items-center gap-2">
+    <div className="flex items-center lg:justify-end justify-center">
+      <div className="flex items-center gap-2 lg:w-fit w-full">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto" size="sm">
+            <Button variant="outline" className="lg:w-fit w-full" size="sm">
               <Settings2 className="h-4 w-4" />
               <span>{t("forecast.toolbar.view")}</span>
             </Button>

@@ -29,7 +29,7 @@ export default function TableFooter<TData>({
 }: TableFooterProps<TData>) {
   const t = useTranslations();
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between lg:flex-row flex-col gap-4">
       <div className="flex items-center space-x-2">
         <p className="text-sm font-medium">
           {t("forecast.tableFooter.rowsPerPage")}
@@ -67,7 +67,7 @@ export default function TableFooter<TData>({
       <div className="flex items-center space-x-1">
         <Button
           variant="outline"
-          className="hidden h-8 w-8 p-0 lg:flex"
+          className="h-8 w-8 p-0"
           onClick={() => table.setPageIndex(0)}
           disabled={!table.getCanPreviousPage()}
         >
@@ -100,7 +100,7 @@ export default function TableFooter<TData>({
         </Button>
         <Button
           variant="outline"
-          className="hidden h-8 w-8 p-0 lg:flex"
+          className="h-8 w-8 p-0"
           onClick={() => table.setPageIndex(table.getPageCount() - 1)}
           disabled={!table.getCanNextPage()}
         >

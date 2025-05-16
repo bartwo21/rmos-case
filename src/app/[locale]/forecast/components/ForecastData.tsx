@@ -23,15 +23,6 @@ export default function ForecastData({ requestData }: ForecastDataProps) {
     },
   });
 
-  useEffect(() => {
-    if (forecastQuery.data) {
-      console.log("Forecast Data:", forecastQuery.data);
-    }
-    if (forecastQuery.error) {
-      console.error("Forecast Error:", forecastQuery.error);
-    }
-  }, [forecastQuery.data, forecastQuery.error]);
-
   const columns = useMemo(() => {
     if (forecastQuery.data?.value?.length) {
       return createColumns(forecastQuery.data.value, activeTab);
@@ -62,15 +53,15 @@ export default function ForecastData({ requestData }: ForecastDataProps) {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <div className="bg-white rounded-lg shadow lg:p-6 p-3">
       <Tabs
         value={activeTab}
         onValueChange={setActiveTab}
         className="w-full mb-6"
       >
         <TabsList
-          className={`grid grid-cols-7 ${
-            activeTab === "chart" ? "mb-4" : "-mb-10"
+          className={`flex flex-wrap gap-2 flex-1/2 ${
+            activeTab === "chart" ? "mb-4" : "lg:-mb-10 mb-4"
           } z-10`}
         >
           <TabsTrigger value="current">

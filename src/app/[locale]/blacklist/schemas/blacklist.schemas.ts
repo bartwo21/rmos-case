@@ -5,3 +5,5 @@ export const blacklistFormSchema = z.object({
   Soy: z.string().min(1, "Soyad alanı zorunludur"),
   Aciklama: z.string().optional(),
 });
+
+export type FormValues = z.infer<typeof blacklistFormSchema>;

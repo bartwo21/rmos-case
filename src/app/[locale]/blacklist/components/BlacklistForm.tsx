@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -18,9 +17,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { BlacklistAddUpdateRequest, BlacklistItem } from "@/types/blacklist";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { blacklistService } from "@/services/blacklistService";
-import { blacklistFormSchema } from "../schemas/blacklist.schemas";
-
-type BlacklistFormValues = z.infer<typeof blacklistFormSchema>;
+import { FormValues, blacklistFormSchema } from "../schemas/blacklist.schemas";
+import { useTranslations } from "next-intl";
+import { Spinner } from "@/components/ui/spinner";
 
 interface BlacklistFormProps {
   selectedItem?: BlacklistItem;
@@ -35,15 +34,28 @@ export default function BlacklistForm({
 }: BlacklistFormProps) {
   const queryClient = useQueryClient();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const t = useTranslations();
 
-  const form = useForm<BlacklistFormValues>({
-    resolver: zodResolver(blacklistFormSchema),
-    defaultValues: {
-      Adi: selectedItem?.Adi || "",
-      Soy: selectedItem?.Soy || "",
-      Aciklama: selectedItem?.Aciklama || "",
-    },
+  const schema = blacklistFormSchema;
+
+  const getDefaultValues = () => {
+    if (!selectedItem) return { Adi: "", Soy: "", Aciklama: "" };
+
+    return {
+      Adi: selectedItem.Adi?.toString() || "",
+      Soy: selectedItem.Soy?.toString() || "",
+      Aciklama: selectedItem.Aciklama?.toString() || "",
+    };
+  };
+
+  const form = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: getDefaultValues(),
   });
+
+  useEffect(() => {
+    form.reset(getDefaultValues());
+  }, [selectedItem, form]);
 
   const blacklistMutation = useMutation({
     mutationFn: (data: BlacklistAddUpdateRequest) => {
@@ -52,7 +64,6 @@ export default function BlacklistForm({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["blacklist"] });
       if (onSuccess) onSuccess();
-      form.reset();
     },
     onError: (error) => {
       console.error("Form submission error:", error);
@@ -62,67 +73,56 @@ export default function BlacklistForm({
     },
   });
 
-  function onSubmit(values: BlacklistFormValues) {
+  function onSubmit(values: FormValues) {
     setIsSubmitting(true);
 
     const requestData: BlacklistAddUpdateRequest = {
+      ...values,
       db_Id,
       Id: selectedItem?.Id || 0,
-      Adi: values.Adi,
-      Soy: values.Soy,
-      Aciklama: values.Aciklama || "",
     };
 
     blacklistMutation.mutate(requestData);
   }
 
+  const renderFormFields = () => {
+    const editableFields = ["Adi", "Soy", "Aciklama"] as const;
+
+    return editableFields.map((fieldName) => (
+      <FormField
+        key={fieldName}
+        control={form.control}
+        name={fieldName}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>{fieldName}</FormLabel>
+            <FormControl>
+              {fieldName === "Aciklama" ? (
+                <Textarea placeholder={fieldName} {...field} />
+              ) : (
+                <Input placeholder={fieldName} {...field} />
+              )}
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    ));
+  };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="Adi"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {renderFormFields()}
 
-        <FormField
-          control={form.control}
-          name="Soy"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Surname</FormLabel>
-              <FormControl>
-                <Input placeholder="Surname" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+        <Button type="submit" disabled={isSubmitting} className="w-full">
+          {isSubmitting ? (
+            <Spinner size="sm" />
+          ) : selectedItem ? (
+            t("blacklist.update")
+          ) : (
+            t("blacklist.add")
           )}
-        />
-
-        <FormField
-          control={form.control}
-          name="Aciklama"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Textarea placeholder="Description" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Processing..." : selectedItem ? "Update" : "Add"}
         </Button>
       </form>
     </Form>

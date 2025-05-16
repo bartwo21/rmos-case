@@ -10,7 +10,8 @@
     "forecast": "Forecast",
     "blacklist": "Blacklist",
     "signIn": "Sign In",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "menu": "Menu"
   },
   "footer": {
     "copyright": "Copyright © 2025 RMOS. All rights reserved."
@@ -63,6 +64,14 @@
     }
   },
   "blacklist": {
-    "title": "Blacklist"
+    "title": "Blacklist",
+    "edit": "Edit",
+    "addNew": "Add New",
+    "noData": "No blacklist data.",
+    "errorLoading": "Error Loading Blacklist, Please try again later.",
+    "addRecord": "Add Record",
+    "editRecord": "Edit Record",
+    "update": "Update",
+    "add": "Add"
   }
 }

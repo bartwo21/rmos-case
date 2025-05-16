@@ -45,7 +45,7 @@ export default function LoginForm() {
   }, [login.error]);
 
   return (
-    <Card className="w-[400px] shadow-2xl bg-white/95 backdrop-blur">
+    <Card className="lg:w-[400px] w-11/12 shadow-2xl bg-white/95 backdrop-blur">
       <CardHeader>
         <CardTitle className="text-2xl">{t("login.title")}</CardTitle>
         <CardDescription>{t("login.description")}</CardDescription>

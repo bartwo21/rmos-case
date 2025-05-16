@@ -34,7 +34,7 @@ const defaultForecastRequest: ForecastRequestData = {
 export default function page() {
   const t = useTranslations();
   return (
-    <div className="p-8 mx-auto w-full">
+    <div className="lg:p-8 p-4 mx-auto w-full">
       <h1 className="text-2xl font-bold mb-6 w-full text-left">
         {t("forecast.title")}
       </h1>
