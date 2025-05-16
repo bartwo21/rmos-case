@@ -9,6 +9,8 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { useTranslations } from "next-intl";
+import { format } from "date-fns";
+import { tr } from "date-fns/locale";
 
 interface ForecastChartProps {
   data: ForecastItem[];
@@ -16,11 +18,7 @@ interface ForecastChartProps {
 
 const formatDate = (dateString: string): string => {
   if (!dateString) return "";
-  const dateObj = new Date(dateString);
-  return dateObj.toLocaleDateString("tr-TR", {
-    day: "numeric",
-    month: "short",
-  });
+  return format(new Date(dateString), "d MMM", { locale: tr });
 };
 
 const formatCurrency = (value: number): string => {
@@ -77,24 +75,19 @@ const ForecastChart: React.FC<ForecastChartProps> = ({ data }) => {
 
   const chartConfig = {
     Oda: {
-      label: "Oda",
-      color: "hsl(var(--chart-1))",
+      label: t("forecast.chart.oda"),
     },
     BlokajsizOda: {
-      label: "Blokajsız Oda",
-      color: "hsl(var(--chart-2))",
+      label: t("forecast.chart.blokajsizOda"),
     },
     GelenOda: {
-      label: "Gelen Oda",
-      color: "hsl(var(--chart-3))",
+      label: t("forecast.chart.gelenOda"),
     },
     GidenOda: {
-      label: "Giden Oda",
-      color: "hsl(var(--chart-4))",
+      label: t("forecast.chart.gidenOda"),
     },
     KontenjanOda: {
-      label: "Kontenjan Oda",
-      color: "hsl(var(--chart-5))",
+      label: t("forecast.chart.kontenjanOda"),
     },
   };
 
@@ -172,19 +165,11 @@ const ForecastChart: React.FC<ForecastChartProps> = ({ data }) => {
                   />
                 }
               />
-              <Bar dataKey="Oda" fill="var(--color-Oda)" radius={4} />
-              <Bar
-                dataKey="BlokajsizOda"
-                fill="var(--color-BlokajsizOda)"
-                radius={4}
-              />
-              <Bar dataKey="GelenOda" fill="var(--color-GelenOda)" radius={4} />
-              <Bar dataKey="GidenOda" fill="var(--color-GidenOda)" radius={4} />
-              <Bar
-                dataKey="KontenjanOda"
-                fill="var(--color-KontenjanOda)"
-                radius={4}
-              />
+              <Bar dataKey="Oda" radius={4} />
+              <Bar dataKey="BlokajsizOda" radius={4} />
+              <Bar dataKey="GelenOda" radius={4} />
+              <Bar dataKey="GidenOda" radius={4} />
+              <Bar dataKey="KontenjanOda" radius={4} />
             </BarChart>
           </ChartContainer>
         </div>

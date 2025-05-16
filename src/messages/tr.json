@@ -64,7 +64,12 @@
       "tahminiGelir": "Tahmini Gelir",
       "yetiskin": "Yetişkin",
       "cocuk": "Çocuk",
-      "free": "Bedava"
+      "free": "Bedava",
+      "oda": "Oda",
+      "blokajsizOda": "Blokajsız Oda",
+      "gelenOda": "Gelen Oda",
+      "gidenOda": "Giden Oda",
+      "kontenjanOda": "Kontenjan Oda"
     }
   },
   "blacklist": {

@@ -64,7 +64,12 @@
       "tahminiGelir": "Estimated Revenue",
       "yetiskin": "Adult",
       "cocuk": "Child",
-      "free": "Free"
+      "free": "Free",
+      "oda": "Room",
+      "blokajsizOda": "Unblocked Room",
+      "gelenOda": "Incoming Room",
+      "gidenOda": "Outgoing Room",
+      "kontenjanOda": "Quota Room"
     }
   },
   "blacklist": {
