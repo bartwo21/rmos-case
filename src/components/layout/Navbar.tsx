@@ -15,7 +15,7 @@ import {
 import {
   useRouter as useIntlRouter,
   usePathname as useIntlPathname,
-} from "@/i18n/routing";
+} from "@/i18n/navigation";
 import { locales } from "@/localizationConfig";
 import { Globe } from "lucide-react";
 import { useTranslations } from "next-intl";

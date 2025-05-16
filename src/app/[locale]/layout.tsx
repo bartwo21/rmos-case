@@ -5,7 +5,7 @@ import Header from "@/components/layout/Navbar";
 import { ErrorBoundaryProvider } from "@/components/error-boundaries/GeneralErrorBoundary";
 import Footer from "@/components/layout/Footer";
 import { QueryProvider } from "./queryprovider";
-import { getMessages } from "next-intl/server";
+import { getLocale, getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +28,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const messages = await getMessages();
+  const locale = await getLocale();
   return (
-    <html>
+    <html lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
