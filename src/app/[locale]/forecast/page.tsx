@@ -31,7 +31,7 @@ const defaultForecastRequest: ForecastRequestData = {
   cev_01: null,
 };
 
-export default function page() {
+export default function ForecastPage() {
   const t = useTranslations();
   return (
     <div className="lg:p-8 p-4 mx-auto w-full">

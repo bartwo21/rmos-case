@@ -1,27 +1,37 @@
-### Klasör Yapısı
+### Folder Structure
 
 src/
 ├── app/ # Next.js App Router yapısı
-│ ├── blacklist/ # Blacklist sayfası ve bileşenleri
-│ ├── forecast/ # Forecast sayfası ve bileşenleri
-│ ├── login/ # Giriş sayfası ve bileşenleri
-│ ├── layout.tsx # Ana layout bileşeni
-│ ├── page.tsx # Ana sayfa
-│ ├── providers.tsx # Global provider'lar
+│ ├── [locale]/ # Dil bazlı routing
+│ │ ├── blacklist/ # Blacklist sayfası ve bileşenleri
+│ │ ├── forecast/ # Forecast sayfası ve bileşenleri
+│ │ ├── login/ # Giriş sayfası ve bileşenleri
+│ │ ├── layout.tsx # Ana layout bileşeni
+│ │ └── page.tsx # Ana sayfa
+│ ├── [...catchAll]/ # Yakalanmayan rotalar için 404
+│ ├── providers.tsx # Query Provider
 │ └── not-found.tsx # 404 sayfası
 │
 ├── components/ # Paylaşılan bileşenler
+│ ├── auth/ # Kimlik doğrulama bileşenleri
 │ ├── data-table/ # Tablo bileşenleri
+│ ├── error-boundaries/ # Hata sınırı bileşenleri
+│ ├── home/ # Ana sayfa bileşenleri
 │ ├── layout/ # Layout bileşenleri (Header, Footer)
-│ ├── ui/ # UI bileşenleri (button, input, vb.)
-│ ├── DashboardPreview.tsx # Dashboard önizleme bileşeni
-│ ├── ErrorBoundary.tsx # Hata sınırı bileşeni
-│ └── HeroSection.tsx # Ana sayfa hero bileşeni
+│ └── ui/ # UI bileşenleri (button, input, vb.)
+│
+├── i18n/ # Uluslararasılaştırma yapılandırması
+│ ├── request.ts # API istekleri için dil yapılandırması
+│ └── routing.ts # Rota yapılandırması için dil desteği
 │
 ├── lib/ # Yardımcı fonksiyonlar ve kütüphaneler
 │ ├── hooks/ # Özel hook'lar
 │ ├── api.ts # API yapılandırması
 │ └── utils.ts # Yardımcı fonksiyonlar
+│
+├── messages/ # Dil dosyaları
+│ ├── en.json # İngilizce çeviriler
+│ └── tr.json # Türkçe çeviriler
 │
 ├── services/ # API servisleri
 │ ├── authService.ts # Kimlik doğrulama servisi
@@ -34,6 +44,8 @@ src/
 ├── types/ # TypeScript type tanımlamaları
 │ ├── blacklist.ts # Blacklist tipleri
 │ └── forecast.ts # Forecast tipleri
+│
+├── localizationConfig.ts # Localization yapılandırması
 │
 └── middleware.ts # Next.js middleware (yönlendirme ve protected routes)
 

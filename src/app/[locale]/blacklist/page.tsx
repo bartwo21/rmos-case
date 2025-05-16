@@ -11,7 +11,7 @@ const defaultBlackList: BlacklistRequestData = {
   tip: 9,
 };
 
-export default function page() {
+export default function BlacklistPage() {
   const t = useTranslations();
   return (
     <div className="lg:p-8 p-4 mx-auto w-full">
