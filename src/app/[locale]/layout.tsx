@@ -5,7 +5,7 @@ import Header from "@/components/layout/Navbar";
 import { ErrorBoundaryProvider } from "@/components/error-boundaries/GeneralErrorBoundary";
 import Footer from "@/components/layout/Footer";
 import { QueryProvider } from "./queryprovider";
-import { getLocale, getMessages } from "next-intl/server";
+import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,10 +17,21 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Rmos - Frontend Case Study",
-  description: "Rmos Dashboard",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const t = await getTranslations({
+    locale: params.locale,
+    namespace: "metadata",
+  });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 export default async function RootLayout({
   children,

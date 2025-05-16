@@ -52,16 +52,20 @@ export default function Navbar() {
         <>
           <Link
             href="/forecast"
-            className={`text-gray-900 hover:text-sky-500 font-medium ${
-              isActive("/forecast") ? "text-sky-500" : ""
+            className={`text-gray-900 font-medium relative py-[2px] hover:text-gray-600 transition-all duration-300 ${
+              isActive("/forecast")
+                ? "after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-black"
+                : ""
             }`}
           >
             {t("navbar.forecast")}
           </Link>
           <Link
             href="/blacklist"
-            className={`text-gray-900 hover:text-sky-500 font-medium ${
-              isActive("/blacklist") ? "text-sky-500" : ""
+            className={`text-gray-900 font-medium relative py-[2px] hover:text-gray-600 transition-all duration-300 ${
+              isActive("/blacklist")
+                ? "after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-black"
+                : ""
             }`}
           >
             {t("navbar.blacklist")}
