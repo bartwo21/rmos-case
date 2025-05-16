@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Settings2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface TableToolbarProps<TData> {
   table: Table<TData>;
@@ -17,6 +18,7 @@ interface TableToolbarProps<TData> {
 export default function TableToolbar<TData>({
   table,
 }: TableToolbarProps<TData>) {
+  const t = useTranslations();
   return (
     <div className="flex items-center justify-end">
       <div className="flex items-center gap-2">
@@ -24,7 +26,7 @@ export default function TableToolbar<TData>({
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto" size="sm">
               <Settings2 className="h-4 w-4" />
-              <span>View</span>
+              <span>{t("forecast.toolbar.view")}</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">

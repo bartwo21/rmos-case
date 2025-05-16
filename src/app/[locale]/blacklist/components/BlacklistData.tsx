@@ -77,7 +77,7 @@ export default function BlacklistData({ requestData }: BlacklistDataProps) {
   }, []);
 
   if (blacklistQuery.isLoading) {
-    return <Loading message="Loading Blacklist..." />;
+    return <Loading />;
   }
 
   if (blacklistQuery.isError) {

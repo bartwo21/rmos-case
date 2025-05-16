@@ -1,0 +1,68 @@
+{
+  "hero": {
+    "titleStart": "Powerfull",
+    "titleMiddle": "Tools Dashboard by",
+    "titleEnd": "Rmos",
+    "description": "Awesome Dashboard with powerful tools for your business. Easily manage your business with our tools and make your life easier.",
+    "button": "Get Started"
+  },
+  "navbar": {
+    "forecast": "Forecast",
+    "blacklist": "Blacklist",
+    "signIn": "Sign In",
+    "signOut": "Sign Out"
+  },
+  "footer": {
+    "copyright": "Copyright © 2025 RMOS. All rights reserved."
+  },
+  "login": {
+    "title": "Welcome!",
+    "description": "Enter your credentials to access your account",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "button": "Sign In",
+    "loading": "Signing in...",
+    "error": "Failed to sign in"
+  },
+  "forecast": {
+    "title": "Forecast",
+    "errorData": "No forecast data available for the selected criteria.",
+    "errorLoading": "Error Loading Forecast, Please try again later.",
+    "tabs": {
+      "current": "Current Forecast",
+      "date": "Date Forecast",
+      "detail": "Detail Forecast",
+      "waiting": "Waiting Forecast",
+      "location": "Location Forecast",
+      "compare": "Current Compare",
+      "chart": "Forecast Chart"
+    },
+    "toolbar": {
+      "view": "View"
+    },
+    "tableContent": {
+      "noData": "No data found."
+    },
+    "tableFooter": {
+      "rowsPerPage": "Rows/Page",
+      "print": "Print",
+      "firstPage": "First Page",
+      "previousPage": "Previous Page",
+      "nextPage": "Next Page",
+      "lastPage": "Last Page",
+      "page": "Page"
+    },
+    "chart": {
+      "totalOda": "Total Room",
+      "tahminiGelir": "Estimated Revenue",
+      "yetiskin": "Adult",
+      "cocuk": "Child",
+      "free": "Free"
+    }
+  },
+  "blacklist": {
+    "title": "Blacklist"
+  }
+}

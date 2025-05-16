@@ -8,6 +8,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { useTranslations } from "next-intl";
 
 interface ForecastChartProps {
   data: ForecastItem[];
@@ -38,6 +39,8 @@ const ForecastChart: React.FC<ForecastChartProps> = ({ data }) => {
       Oda: item.Oda,
     }));
   }, [data]);
+
+  const t = useTranslations();
 
   const summaryData = useMemo(() => {
     const totalYetiskin = data.reduce(
@@ -72,27 +75,37 @@ const ForecastChart: React.FC<ForecastChartProps> = ({ data }) => {
     <div className="flex flex-col">
       <div className="flex gap-4 mb-8">
         <div className="bg-gray-50 p-3 rounded-lg shadow-sm w-1/5">
-          <div className="text-gray-500 text-xs">Yetişkin</div>
+          <div className="text-gray-500 text-xs">
+            {t("forecast.chart.yetiskin")}
+          </div>
           <div className="text-lg font-semibold">{summaryData.yetiskin}</div>
         </div>
 
         <div className="bg-gray-50 p-3 rounded-lg shadow-sm w-1/5">
-          <div className="text-gray-500 text-xs">Çocuk</div>
+          <div className="text-gray-500 text-xs">
+            {t("forecast.chart.cocuk")}
+          </div>
           <div className="text-lg font-semibold">{summaryData.cocuk}</div>
         </div>
 
         <div className="bg-gray-50 p-3 rounded-lg shadow-sm w-1/5">
-          <div className="text-gray-500 text-xs">Free</div>
+          <div className="text-gray-500 text-xs">
+            {t("forecast.chart.free")}
+          </div>
           <div className="text-lg font-semibold">{summaryData.free}</div>
         </div>
 
         <div className="bg-gray-50 p-3 rounded-lg shadow-sm w-1/5">
-          <div className="text-gray-500 text-xs">Toplam Oda</div>
+          <div className="text-gray-500 text-xs">
+            {t("forecast.chart.totalOda")}
+          </div>
           <div className="text-lg font-semibold">{summaryData.totalOda}</div>
         </div>
 
         <div className="bg-gray-50 p-3 rounded-lg shadow-sm w-1/5">
-          <div className="text-gray-500 text-xs">Tahmini Gelir</div>
+          <div className="text-gray-500 text-xs">
+            {t("forecast.chart.tahminiGelir")}
+          </div>
           <div className="text-lg font-semibold">
             {formatCurrency(summaryData.tahminiGelir)}
           </div>

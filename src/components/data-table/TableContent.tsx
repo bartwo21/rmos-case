@@ -1,6 +1,7 @@
 "use client";
 
 import { Table, flexRender } from "@tanstack/react-table";
+import { useTranslations } from "next-intl";
 
 interface TableContentProps<TData> {
   table: Table<TData>;
@@ -13,6 +14,7 @@ export default function TableContent<TData>({
   columnTotals,
   formatTotalValue,
 }: TableContentProps<TData>) {
+  const t = useTranslations();
   return (
     <tbody>
       {table.getRowModel().rows?.length ? (
@@ -42,7 +44,7 @@ export default function TableContent<TData>({
             colSpan={table.getAllColumns().length}
             className="h-24 text-center"
           >
-            No data found.
+            {t("forecast.tableContent.noData")}
           </td>
         </tr>
       )}

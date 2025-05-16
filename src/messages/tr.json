@@ -1,0 +1,68 @@
+{
+  "hero": {
+    "titleStart": "Rmos",
+    "titleMiddle": "ile Güçlü Araçlara Sahip",
+    "titleEnd": "Panolar",
+    "description": "Rmos ile Güçlü Araçlar Panosu, işletmenizin güçlü araçlarıyla kolayca yönetebileceğiniz bir panodur. Hayatınızı kolaylaştırmak için Rmos'tan güçlü araçları kullanın.",
+    "button": "Başla"
+  },
+  "navbar": {
+    "forecast": "Tahmin",
+    "blacklist": "Kara Liste",
+    "signIn": "Giriş Yap",
+    "signOut": "Çıkış Yap"
+  },
+  "footer": {
+    "copyright": "Copyright © 2025 RMOS. Tüm hakları saklıdır."
+  },
+  "login": {
+    "title": "Hoş Geldiniz!",
+    "description": "Hesabınıza erişmek için kimlik bilgilerinizi giriniz.",
+    "email": "Email",
+    "emailPlaceholder": "Email adresinizi giriniz",
+    "password": "Şifre",
+    "passwordPlaceholder": "Şifrenizi giriniz",
+    "button": "Giriş Yap",
+    "loading": "Giriş yapılıyor...",
+    "error": "Giriş yapılamadı"
+  },
+  "forecast": {
+    "title": "Tahmin",
+    "errorData": "Seçilen kriterlere göre tahmin verileri mevcut değildir.",
+    "errorLoading": "Tahmin yüklenirken hata oluştu, lütfen daha sonra tekrar deneyiniz.",
+    "tabs": {
+      "current": "Mevcut Tahmin",
+      "date": "Tarih Tahmini",
+      "detail": "Detaylı Tahmin",
+      "waiting": "Bekleyen Tahmin",
+      "location": "Konum Tahmini",
+      "compare": "Mevcut Karşılaştırma",
+      "chart": "Tahmin Grafiği"
+    },
+    "toolbar": {
+      "view": "Görünüm"
+    },
+    "tableContent": {
+      "noData": "Veri bulunamadı"
+    },
+    "tableFooter": {
+      "rowsPerPage": "Satır/Sayfa",
+      "print": "Yazdır",
+      "firstPage": "İlk Sayfa",
+      "previousPage": "Önceki Sayfa",
+      "nextPage": "Sonraki Sayfa",
+      "lastPage": "Son Sayfa",
+      "page": "Sayfa"
+    },
+    "chart": {
+      "totalOda": "Toplam Oda",
+      "tahminiGelir": "Tahmini Gelir",
+      "yetiskin": "Yetişkin",
+      "cocuk": "Çocuk",
+      "free": "Bedava"
+    }
+  },
+  "blacklist": {
+    "title": "Kara Liste"
+  }
+}

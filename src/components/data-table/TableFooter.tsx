@@ -16,6 +16,7 @@ import {
   ChevronsRight,
   Printer,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface TableFooterProps<TData> {
   table: Table<TData>;
@@ -26,10 +27,13 @@ export default function TableFooter<TData>({
   table,
   handlePrint,
 }: TableFooterProps<TData>) {
+  const t = useTranslations();
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-2">
-        <p className="text-sm font-medium">Rows/page</p>
+        <p className="text-sm font-medium">
+          {t("forecast.tableFooter.rowsPerPage")}
+        </p>
         <Select
           value={`${table.getState().pagination.pageSize}`}
           onValueChange={(value: string) => {
@@ -55,7 +59,7 @@ export default function TableFooter<TData>({
             className="flex items-center gap-1"
           >
             <Printer className="h-4 w-4" />
-            <span>Print</span>
+            <span>{t("forecast.tableFooter.print")}</span>
           </Button>
         </div>
       </div>
@@ -67,7 +71,7 @@ export default function TableFooter<TData>({
           onClick={() => table.setPageIndex(0)}
           disabled={!table.getCanPreviousPage()}
         >
-          <span className="sr-only">First Page</span>
+          <span className="sr-only">{t("forecast.tableFooter.firstPage")}</span>
           <ChevronsLeft className="h-4 w-4" />
         </Button>
         <Button
@@ -76,12 +80,14 @@ export default function TableFooter<TData>({
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          <span className="sr-only">Previous Page</span>
+          <span className="sr-only">
+            {t("forecast.tableFooter.previousPage")}
+          </span>
           <ChevronLeft className="h-4 w-4" />
         </Button>
         <div className="flex items-center gap-1 text-sm font-medium">
-          Page {table.getState().pagination.pageIndex + 1} /{" "}
-          {table.getPageCount()}
+          {t("forecast.tableFooter.page")}{" "}
+          {table.getState().pagination.pageIndex + 1} / {table.getPageCount()}
         </div>
         <Button
           variant="outline"
@@ -89,7 +95,7 @@ export default function TableFooter<TData>({
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          <span className="sr-only">Next Page</span>
+          <span className="sr-only">{t("forecast.tableFooter.nextPage")}</span>
           <ChevronRight className="h-4 w-4" />
         </Button>
         <Button
@@ -98,7 +104,7 @@ export default function TableFooter<TData>({
           onClick={() => table.setPageIndex(table.getPageCount() - 1)}
           disabled={!table.getCanNextPage()}
         >
-          <span className="sr-only">Last Page</span>
+          <span className="sr-only">{t("forecast.tableFooter.lastPage")}</span>
           <ChevronsRight className="h-4 w-4" />
         </Button>
       </div>

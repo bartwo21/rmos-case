@@ -4,8 +4,9 @@ import "./globals.css";
 import Header from "@/components/layout/Navbar";
 import { ErrorBoundaryProvider } from "@/components/error-boundaries/GeneralErrorBoundary";
 import Footer from "@/components/layout/Footer";
-import { Providers } from "./providers";
-
+import { QueryProvider } from "./queryprovider";
+import { getMessages } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -21,23 +22,26 @@ export const metadata: Metadata = {
   description: "Rmos Dashboard",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const messages = await getMessages();
   return (
-    <html lang="en">
+    <html>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <Providers>
-          <ErrorBoundaryProvider>
-            <Header />
-            <main className="flex-1 flex flex-col">{children}</main>
-            <Footer />
-          </ErrorBoundaryProvider>
-        </Providers>
+        <NextIntlClientProvider messages={messages}>
+          <QueryProvider>
+            <ErrorBoundaryProvider>
+              <Header />
+              <main className="flex-1 flex flex-col">{children}</main>
+              <Footer />
+            </ErrorBoundaryProvider>
+          </QueryProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

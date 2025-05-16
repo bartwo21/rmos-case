@@ -1,12 +1,19 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import createIntlMiddleware from "next-intl/middleware";
+import { routing } from "./i18n/routing";
 
 const protectedRoutes = ["/forecast", "/blacklist"];
 const publicRoutes = ["/login"];
 
+const intlMiddleware = createIntlMiddleware({
+  ...routing,
+  locales: ["en", "tr"],
+  defaultLocale: "en",
+});
+
 export function middleware(request: NextRequest) {
   const authToken = request.cookies.get("auth-storage-token")?.value;
-
   const { pathname } = request.nextUrl;
 
   if (
@@ -22,9 +29,16 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/forecast", request.url));
   }
 
-  return NextResponse.next();
+  return intlMiddleware(request);
 }
 
 export const config = {
-  matcher: ["/forecast/:path*", "/blacklist/:path*", "/login"],
+  matcher: [
+    // i18n
+    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    // auth
+    "/forecast/:path*",
+    "/blacklist/:path*",
+    "/login",
+  ],
 };

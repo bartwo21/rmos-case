@@ -6,6 +6,19 @@ import Link from "next/link";
 import { useAuthStore } from "@/store/authStore";
 import { useRouter, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  useRouter as useIntlRouter,
+  usePathname as useIntlPathname,
+} from "@/i18n/routing";
+import { locales } from "@/localizationConfig";
+import { Globe } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function Navbar() {
   const router = useRouter();
@@ -13,6 +26,9 @@ export default function Navbar() {
   const token = useAuthStore((state) => state.token);
   const logout = useAuthStore((state) => state.logout);
   const [hasHydrated, setHasHydrated] = useState(false);
+  const intlRouter = useIntlRouter();
+  const intlPathname = useIntlPathname();
+  const t = useTranslations();
 
   useEffect(() => {
     setHasHydrated(true);
@@ -22,11 +38,18 @@ export default function Navbar() {
 
   const handleLogout = () => {
     logout();
-    router.push("/");
+    // Force navigation to login page
+    router.push("/login");
+    // Force a refresh to clear any client-side state
+    window.location.href = "/login";
   };
 
   const isActive = (path: string) => {
     return pathname === path;
+  };
+
+  const handleLanguageChange = (locale: string) => {
+    intlRouter.replace(intlPathname, { locale });
   };
 
   return (
@@ -51,7 +74,7 @@ export default function Navbar() {
                 isActive("/forecast") ? "text-sky-500" : ""
               }`}
             >
-              Forecast
+              {t("navbar.forecast")}
             </Link>
             <Link
               href="/blacklist"
@@ -59,19 +82,40 @@ export default function Navbar() {
                 isActive("/blacklist") ? "text-sky-500" : ""
               }`}
             >
-              Blacklist
+              {t("navbar.blacklist")}
             </Link>
           </>
         )}
       </div>
 
-      <div>
+      <div className="flex items-center space-x-4">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline">
+              <p className="text-black">
+                {pathname.startsWith("/en") ? "English" : "Türkçe"}
+              </p>
+              <Globe className="h-5 w-5 text-gray-900" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {locales.map((locale) => (
+              <DropdownMenuItem
+                key={locale}
+                onClick={() => handleLanguageChange(locale)}
+              >
+                {locale === "en" ? "English" : "Türkçe"}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
         {hasHydrated ? (
           isLoggedIn ? (
-            <Button onClick={handleLogout}>Sign out</Button>
+            <Button onClick={handleLogout}>{t("navbar.signOut")}</Button>
           ) : (
             <Link href="/login">
-              <Button>Sign in</Button>
+              <Button>{t("navbar.signIn")}</Button>
             </Link>
           )
         ) : null}

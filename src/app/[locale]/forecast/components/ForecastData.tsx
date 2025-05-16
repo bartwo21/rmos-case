@@ -9,9 +9,11 @@ import { createColumns } from "./ForecastColumns";
 import { DataTable } from "@/components/data-table/DataTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ForecastChart from "./ForecastChart";
+import { useTranslations } from "next-intl";
 
 export default function ForecastData({ requestData }: ForecastDataProps) {
   const [activeTab, setActiveTab] = useState("current");
+  const t = useTranslations();
 
   const forecastQuery = useQuery<ForecastResponse>({
     queryKey: ["forecast", requestData],
@@ -38,13 +40,13 @@ export default function ForecastData({ requestData }: ForecastDataProps) {
   }, [forecastQuery.data?.value, activeTab]);
 
   if (forecastQuery.isLoading) {
-    return <Loading message="Loading Forecast..." />;
+    return <Loading />;
   }
 
   if (forecastQuery.isError) {
     return (
       <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-        <p>Error Loading Forecast, Please try again later.</p>
+        <p>{t("forecast.errorLoading")}</p>
       </div>
     );
   }
@@ -54,7 +56,7 @@ export default function ForecastData({ requestData }: ForecastDataProps) {
   if (!forecastData?.value?.length) {
     return (
       <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
-        <p>No forecast data available for the selected criteria.</p>
+        <p>{t("forecast.errorData")}</p>
       </div>
     );
   }
@@ -71,13 +73,21 @@ export default function ForecastData({ requestData }: ForecastDataProps) {
             activeTab === "chart" ? "mb-4" : "-mb-10"
           } z-10`}
         >
-          <TabsTrigger value="current">Current Forecast</TabsTrigger>
-          <TabsTrigger value="date">Date Forecast</TabsTrigger>
-          <TabsTrigger value="detail">Detail Forecast</TabsTrigger>
-          <TabsTrigger value="waiting">Waiting Forecast</TabsTrigger>
-          <TabsTrigger value="location">Location Forecast</TabsTrigger>
-          <TabsTrigger value="compare">Current Compare</TabsTrigger>
-          <TabsTrigger value="chart">Forecast Chart</TabsTrigger>
+          <TabsTrigger value="current">
+            {t("forecast.tabs.current")}
+          </TabsTrigger>
+          <TabsTrigger value="date">{t("forecast.tabs.date")}</TabsTrigger>
+          <TabsTrigger value="detail">{t("forecast.tabs.detail")}</TabsTrigger>
+          <TabsTrigger value="waiting">
+            {t("forecast.tabs.waiting")}
+          </TabsTrigger>
+          <TabsTrigger value="location">
+            {t("forecast.tabs.location")}
+          </TabsTrigger>
+          <TabsTrigger value="compare">
+            {t("forecast.tabs.compare")}
+          </TabsTrigger>
+          <TabsTrigger value="chart">{t("forecast.tabs.chart")}</TabsTrigger>
         </TabsList>
 
         <TabsContent value={activeTab}>

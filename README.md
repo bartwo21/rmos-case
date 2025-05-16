@@ -74,8 +74,8 @@ ErrorBoundary ile hata ekranları oluşturuldu ve beklenmeyen hatalar yakalandı
 
 ### Kullanılan Bazı Kütüphaneler
 
-TanStack React Table (Veri tabloları, sıralama ve filtreleme), date-fns (Tarih formatlaması ve işlemleri), recharts (Grafikler ve veri görselleştirme), react-error-boundary (Hata yakalama ve yönetimi), react-to-print (Tablo yazdırma işlemleri), js-cookie (Token yönetimi ve çerezler)
+TanStack React Table (Tablolar), date-fns (Tarih formatlama), recharts (Grafikler), react-error-boundary (Hata yakalama), react-to-print (Tablo yazdırma), js-cookie (Token yönetimi ve çerezler), next-intl (Localization)
 
 ### Neden Context API Yerine Zustand Seçtim?
 
-Context API'de bir state güncellendiğinde, o context'e bağlı olan tüm bileşenler yeniden render edilir ve bu durum performans sorunlarına yol açabilir. Zustand ise sadece değişen state'i kullanan bileşenleri render eder. Ayrıca Zustand'in store yapısı daha modüler olduğundan, büyük uygulamalarda bakımı ve yönetimi daha kolaydır.
+Context API'de bir state güncellendiğinde, o context'e bağlı olan tüm componentler yeniden render edilir ve bu durum performans sorunlarına yol açabilir. Zustand ise sadece değişen state'i kullanan componentleri render eder. Ayrıca Zustand'in store yapısı daha modüler olduğundan, büyük uygulamalarda bakım daha kolaydır.

@@ -15,10 +15,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginFormData } from "../schemas/login.schema";
 import { useLogin } from "@/lib/hooks/authHooks";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function LoginForm() {
   const login = useLogin();
   const [showError, setShowError] = useState(false);
+  const t = useTranslations();
 
   const {
     register,
@@ -45,19 +47,17 @@ export default function LoginForm() {
   return (
     <Card className="w-[400px] shadow-2xl bg-white/95 backdrop-blur">
       <CardHeader>
-        <CardTitle className="text-2xl">Welcome!</CardTitle>
-        <CardDescription>
-          Enter your credentials to access your account
-        </CardDescription>
+        <CardTitle className="text-2xl">{t("login.title")}</CardTitle>
+        <CardDescription>{t("login.description")}</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="userName">Email</Label>
+            <Label htmlFor="userName">{t("login.email")}</Label>
             <Input
               id="userName"
               type="email"
-              placeholder="Enter your email"
+              placeholder={t("login.emailPlaceholder")}
               className={`h-12 ${errors.userName ? "border-red-500" : ""}`}
               disabled={login.isPending}
               {...register("userName")}
@@ -68,11 +68,11 @@ export default function LoginForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t("login.password")}</Label>
             <Input
               id="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder={t("login.passwordPlaceholder")}
               className={`h-12 ${errors.password ? "border-red-500" : ""}`}
               disabled={login.isPending}
               {...register("password")}
@@ -84,7 +84,7 @@ export default function LoginForm() {
 
           {showError && login.error && (
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-              Failed to sign in
+              {t("login.error")}
             </div>
           )}
 
@@ -93,7 +93,7 @@ export default function LoginForm() {
             className="w-full h-12 text-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
             disabled={login.isPending}
           >
-            {login.isPending ? "Signing in..." : "Sign in"}
+            {login.isPending ? t("login.loading") : t("login.button")}
           </Button>
         </form>
       </CardContent>

@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { BlacklistRequestData } from "@/types/blacklist";
 import { Loading } from "@/components/ui/loading";
+import { useTranslations } from "next-intl";
 
 const BlacklistData = lazy(() => import("./components/BlacklistData"));
 
@@ -10,11 +11,14 @@ const defaultBlackList: BlacklistRequestData = {
 };
 
 export default function page() {
+  const t = useTranslations();
   return (
     <div className="p-8 mx-auto w-full">
-      <h1 className="text-2xl font-bold mb-6 w-full text-left">Blacklist</h1>
+      <h1 className="text-2xl font-bold mb-6 w-full text-left">
+        {t("blacklist.title")}
+      </h1>
 
-      <Suspense fallback={<Loading message="Loading Blacklist..." />}>
+      <Suspense fallback={<Loading />}>
         <BlacklistData requestData={defaultBlackList} />
       </Suspense>
     </div>

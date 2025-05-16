@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export default function NotFound() {
+export default function NotFoundPage() {
   return (
     <div className="h-[calc(100vh-129px)] w-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 to-blue-900 text-white px-4">
       <h1 className="text-6xl font-bold mb-4 bg-gradient-to-br from-white to-gray-300 text-transparent bg-clip-text">
