@@ -1,4 +1,5 @@
 import Image from "next/image";
+import tableImage from "@/assets/table.png";
 
 export const DashboardPreview = () => {
   return (
@@ -6,12 +7,11 @@ export const DashboardPreview = () => {
       <div className="bg-white rounded-lg p-4 shadow-sm border border-slate-200 w-full overflow-hidden">
         <div className="relative w-full h-[500px] overflow-hidden">
           <Image
-            src="/table.png"
+            src={tableImage}
             alt="Forecast Table Preview"
             width={1600}
             height={1200}
             className="absolute top-0 left-0 w-auto h-auto max-w-none filter blur-[3px]"
-            unoptimized
             priority
           />
 
@@ -24,12 +24,11 @@ export const DashboardPreview = () => {
             }}
           >
             <Image
-              src="/table.png"
+              src={tableImage}
               alt="Forecast Table Preview"
               width={1600}
               height={1200}
               className="w-auto h-auto max-w-none"
-              unoptimized
               priority
             />
           </div>
