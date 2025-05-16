@@ -1,5 +1,6 @@
 ### Folder Structure
 
+```
 src/
 ├── app/ # Next.js App Router yapısı
 │ ├── [locale]/ # Dil bazlı routing
@@ -20,7 +21,8 @@ src/
 │ ├── layout/ # Layout bileşenleri (Header, Footer)
 │ └── ui/ # UI bileşenleri (button, input, vb.)
 │
-├── i18n/ # Uluslararasılaştırma yapılandırması
+├── i18n/ # Localization yapılandırması
+│ ├── navigation.ts # Next.js yönlendirme API'lerinin i18 li versiyonları
 │ ├── request.ts # API istekleri için dil yapılandırması
 │ └── routing.ts # Rota yapılandırması için dil desteği
 │
@@ -45,9 +47,10 @@ src/
 │ ├── blacklist.ts # Blacklist tipleri
 │ └── forecast.ts # Forecast tipleri
 │
-├── localizationConfig.ts # Localization yapılandırması
+├── localizationConfig.ts # Localization config
 │
 └── middleware.ts # Next.js middleware (yönlendirme ve protected routes)
+```
 
 ### Teknoloji Tercihleri
 

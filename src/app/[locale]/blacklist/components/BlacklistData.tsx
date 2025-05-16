@@ -60,17 +60,17 @@ export default function BlacklistData({ requestData }: BlacklistDataProps) {
 
     const baseColumns = createBlacklistColumns(blacklistQuery.data.value);
 
-    baseColumns.push({
+    baseColumns.unshift({
       id: "actions",
       header: t("blacklist.edit"),
       cell: ({ row }) => {
         const item = row.original as BlacklistItem;
         return (
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
             onClick={() => handleEdit(item)}
-            className="flex items-center gap-1 mx-auto"
+            className="flex items-center gap-1 mx-auto bg-blue-50 hover:bg-blue-100 text-primary border-blue-200"
           >
             <Edit className="h-4 w-4" />
             <span>{t("blacklist.edit")}</span>
