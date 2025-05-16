@@ -10,6 +10,7 @@ const intlMiddleware = createIntlMiddleware({
   ...routing,
   locales: ["en", "tr"],
   defaultLocale: "en",
+  localePrefix: "always",
 });
 
 export function middleware(request: NextRequest) {
