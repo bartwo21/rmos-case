@@ -38,6 +38,10 @@ const ForecastChart: React.FC<ForecastChartProps> = ({ data }) => {
       Tarih: formatDate(item.Tarih as string),
       originalDate: formatDate(item.Tarih as string),
       Oda: Number(item.Oda || 0),
+      BlokajsizOda: Number(item["Blokajsız Oda"] || 0),
+      GelenOda: Number(item["Gelen Oda"] || 0),
+      GidenOda: Number(item["Giden Oda"] || 0),
+      KontenjanOda: Number(item["Kontenjan Oda"] || 0),
     }));
   }, [data]);
 
@@ -75,6 +79,22 @@ const ForecastChart: React.FC<ForecastChartProps> = ({ data }) => {
     Oda: {
       label: "Oda",
       color: "hsl(var(--chart-1))",
+    },
+    BlokajsizOda: {
+      label: "Blokajsız Oda",
+      color: "hsl(var(--chart-2))",
+    },
+    GelenOda: {
+      label: "Gelen Oda",
+      color: "hsl(var(--chart-3))",
+    },
+    GidenOda: {
+      label: "Giden Oda",
+      color: "hsl(var(--chart-4))",
+    },
+    KontenjanOda: {
+      label: "Kontenjan Oda",
+      color: "hsl(var(--chart-5))",
     },
   };
 
@@ -153,6 +173,18 @@ const ForecastChart: React.FC<ForecastChartProps> = ({ data }) => {
                 }
               />
               <Bar dataKey="Oda" fill="var(--color-Oda)" radius={4} />
+              <Bar
+                dataKey="BlokajsizOda"
+                fill="var(--color-BlokajsizOda)"
+                radius={4}
+              />
+              <Bar dataKey="GelenOda" fill="var(--color-GelenOda)" radius={4} />
+              <Bar dataKey="GidenOda" fill="var(--color-GidenOda)" radius={4} />
+              <Bar
+                dataKey="KontenjanOda"
+                fill="var(--color-KontenjanOda)"
+                radius={4}
+              />
             </BarChart>
           </ChartContainer>
         </div>
