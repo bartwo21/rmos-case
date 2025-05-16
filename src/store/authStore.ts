@@ -13,7 +13,8 @@ const setCookie = (token: string) => {
   Cookies.set("auth-storage-token", token, {
     expires: 7,
     path: "/",
-    sameSite: "strict",
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
   });
 };
 
