@@ -11,6 +11,7 @@ export const DashboardPreview = () => {
             width={1600}
             height={1200}
             className="absolute top-0 left-0 w-auto h-auto max-w-none filter blur-[3px]"
+            unoptimized
             priority
           />
 
@@ -28,6 +29,7 @@ export const DashboardPreview = () => {
               width={1600}
               height={1200}
               className="w-auto h-auto max-w-none"
+              unoptimized
               priority
             />
           </div>

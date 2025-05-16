@@ -19,8 +19,8 @@ export const HeroSection = () => {
       <p
         className="text-md text-gray-300 mt-8"
         style={{
-          fontSize: "clamp(.7rem, 2vw, 1.5rem)",
-          lineHeight: "clamp(1.1rem, 3vw, 2rem)",
+          fontSize: "clamp(.7rem, 2vw, 1rem)",
+          lineHeight: "clamp(1.1rem, 3vw, 1.7rem)",
         }}
       >
         {t("description")}
