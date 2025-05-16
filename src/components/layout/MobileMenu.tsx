@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Menu, Globe } from "lucide-react";
 import {
   Sheet,
@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { locales } from "@/localizationConfig";
 import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 
 interface MobileMenuProps {
   isLoggedIn: boolean;
@@ -39,6 +40,7 @@ export default function MobileMenu({
   isLoading,
 }: MobileMenuProps) {
   const t = useTranslations();
+  const currentLocale = useLocale();
   const [open, setOpen] = useState(false);
 
   const handleLogoutClick = () => {
@@ -68,7 +70,7 @@ export default function MobileMenu({
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="w-full justify-between">
                   <p className="text-black">
-                    {pathname.startsWith("/en") ? "English" : "Türkçe"}
+                    {currentLocale === "en" ? "English" : "Türkçe"}
                   </p>
                   <Globe className="h-5 w-5 text-gray-900" />
                 </Button>

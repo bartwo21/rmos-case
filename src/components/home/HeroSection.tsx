@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 export const HeroSection = () => {
   const t = useTranslations("hero");
