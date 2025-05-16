@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/store/authStore";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
 import { Loading } from "../ui/loading";
 import Cookies from "js-cookie";

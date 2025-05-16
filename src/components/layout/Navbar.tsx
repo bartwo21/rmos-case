@@ -4,7 +4,6 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { useAuthStore } from "@/store/authStore";
-import { useRouter, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import {
   DropdownMenu,
@@ -12,22 +11,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  useRouter as useIntlRouter,
-  usePathname as useIntlPathname,
-} from "@/i18n/navigation";
+import { useRouter, usePathname } from "@/i18n/navigation";
 import { locales } from "@/localizationConfig";
 import { Globe } from "lucide-react";
 import { useTranslations } from "next-intl";
 import MobileMenu from "./MobileMenu";
 
 export default function Navbar() {
-  const router = useRouter();
   const pathname = usePathname();
   const { token, isLoading, logout } = useAuthStore();
   const [hasHydrated, setHasHydrated] = useState(false);
-  const intlRouter = useIntlRouter();
-  const intlPathname = useIntlPathname();
+  const intlRouter = useRouter();
+  const intlPathname = usePathname();
   const t = useTranslations();
 
   useEffect(() => {
@@ -38,7 +33,7 @@ export default function Navbar() {
 
   const handleLogout = () => {
     logout();
-    router.push("/login");
+    intlRouter.push("/login");
   };
 
   const isActive = (path: string) => {
@@ -96,7 +91,7 @@ export default function Navbar() {
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
               <p className="text-black">
-                {pathname.startsWith("/en") ? "English" : "Türkçe"}
+                {location.pathname.startsWith("/en") ? "English" : "Türkçe"}
               </p>
               <Globe className="h-5 w-5 text-gray-900" />
             </Button>

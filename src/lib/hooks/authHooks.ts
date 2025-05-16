@@ -1,7 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { authService } from "@/services/authService";
 import { useAuthStore } from "@/store/authStore";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { LoginFormData } from "@/app/[locale]/login/schemas/login.schema";
 
 export const useLogin = () => {
