@@ -22,8 +22,6 @@ export default function RouteGuard({ children }: RouteGuardProps) {
   useEffect(() => {
     const cookieToken = Cookies.get("auth-storage-token");
 
-    const locale = pathname.split("/")[1];
-
     const protectedRoutes = ["/forecast", "/blacklist"];
     const isProtectedRoute = protectedRoutes.some((route) =>
       pathname.includes(route)
