@@ -21,6 +21,10 @@ src/
 │ ├── layout/ # Layout bileşenleri (Header, Footer)
 │ └── ui/ # UI bileşenleri (button, input, vb.)
 │
+├── constants/ # Sabit değerler
+│ ├── blacklist.ts
+│ └── forecast.ts
+│
 ├── i18n/ # Localization yapılandırması
 │ ├── navigation.ts # Next.js yönlendirme API'lerinin i18 li versiyonları
 │ ├── request.ts # API istekleri için dil yapılandırması
@@ -33,8 +37,8 @@ src/
 │ └── utils.ts # Yardımcı fonksiyonlar
 │
 ├── messages/ # Dil dosyaları
-│ ├── en.json # İngilizce çeviriler
-│ └── tr.json # Türkçe çeviriler
+│ ├── en.json
+│ └── tr.json
 │
 ├── services/ # API servisleri
 │ ├── authService.ts # Kimlik doğrulama servisi
@@ -45,8 +49,8 @@ src/
 │ └── authStore.ts # Kimlik doğrulama store'u
 │
 ├── types/ # Özel type tanımlamaları
-│ ├── blacklist.ts # Blacklist tipleri
-│ └── forecast.ts # Forecast tipleri
+│ ├── blacklist.ts
+│ └── forecast.ts
 │
 └── middleware.ts # Next.js middleware (yönlendirme ve protected routes)
 ```

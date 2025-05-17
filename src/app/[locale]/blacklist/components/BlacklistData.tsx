@@ -62,11 +62,6 @@ export default function BlacklistData({ requestData }: BlacklistDataProps) {
     setSelectedItem(undefined);
   };
 
-  const handleViewClose = () => {
-    setIsViewOpen(false);
-    setViewItem(undefined);
-  };
-
   const columns = useMemo(() => {
     if (!blacklistQuery.data?.value) {
       return [];
@@ -188,13 +183,6 @@ export default function BlacklistData({ requestData }: BlacklistDataProps) {
                 ))}
               </div>
             )}
-            <Button
-              onClick={handleViewClose}
-              variant="outline"
-              className="w-full mt-4"
-            >
-              {t("blacklist.close")}
-            </Button>
           </div>
         </DialogContent>
       </Dialog>

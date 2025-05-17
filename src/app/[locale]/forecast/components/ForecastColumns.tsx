@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { tabColumnSets } from "@/constants/forecast";
 
 const formatDate = (dateString: string) => {
   try {
@@ -59,82 +60,6 @@ const formatValue = (
   }
 
   return String(value);
-};
-
-const tabColumnSets: Record<string, string[]> = {
-  current: [
-    "Tarih",
-    "Oda",
-    "Pax",
-    "Yetişkin",
-    "Çocuk",
-    "Mevcut",
-    "Yüzde%",
-    "Brut Tutar",
-    "Doviz Tutar",
-    "TL Gerçek",
-  ],
-  date: [
-    "Tarih",
-    "TarihAy",
-    "Oda",
-    "Pax",
-    "Yetişkin",
-    "Çocuk",
-    "Gelen Oda",
-    "Giden Oda",
-    "Forecast",
-    "Son_Yuzdem",
-  ],
-  detail: [
-    "Tarih",
-    "Oda",
-    "Pax",
-    "Free",
-    "Bebek",
-    "Yetişkin",
-    "Çocuk",
-    "Comp Oda",
-    "House Use Oda",
-    "Info Oda",
-    "Pax(P)",
-    "Pax(Prm)",
-  ],
-  waiting: [
-    "Tarih",
-    "Forecast",
-    "Forecast Satılan",
-    "Forecast Kalan",
-    "Kontenjan Oda",
-    "Kontenjan Satılan",
-    "Kontenjan Kalan",
-    "NoShow",
-    "Stop",
-  ],
-  location: [
-    "Tarih",
-    "Konum1",
-    "Konum1%",
-    "Konum2",
-    "Konum2%",
-    "Konum3",
-    "Konum3%",
-    "Konum4",
-    "Konum4%",
-    "Konum5",
-    "Konum5%",
-    "Konum6",
-  ],
-  compare: [
-    "Tarih",
-    "Mevcut",
-    "Son Durum",
-    "Fark_Yuzde",
-    "Yuzde%(Net)",
-    "Yuzde%(Sondurum)",
-    "Otel Adı",
-    "Otel Kodu",
-  ],
 };
 
 export function createColumns(

@@ -1,15 +1,9 @@
 import React, { lazy, Suspense } from "react";
-import { BlacklistRequestData } from "@/types/blacklist";
 import { Loading } from "@/components/ui/loading";
 import { useTranslations } from "next-intl";
+import { defaultBlacklistRequest } from "@/constants/blacklist";
 
 const BlacklistData = lazy(() => import("./components/BlacklistData"));
-
-const defaultBlackList: BlacklistRequestData = {
-  db_Id: 9,
-  Adi: "ALL?",
-  tip: 9,
-};
 
 export default function BlacklistPage() {
   const t = useTranslations();
@@ -20,7 +14,7 @@ export default function BlacklistPage() {
       </h1>
 
       <Suspense fallback={<Loading />}>
-        <BlacklistData requestData={defaultBlackList} />
+        <BlacklistData requestData={defaultBlacklistRequest} />
       </Suspense>
     </div>
   );
