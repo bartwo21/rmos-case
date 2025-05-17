@@ -81,6 +81,10 @@
     "addRecord": "Add Record",
     "editRecord": "Edit Record",
     "update": "Update",
-    "add": "Add"
+    "add": "Add",
+    "view": "View",
+    "actions": "Actions",
+    "close": "Close",
+    "viewRecord": "View Record"
   }
 }

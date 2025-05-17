@@ -65,7 +65,7 @@ Zustand ile basit ve etkili state yönetimi sağlandı. React Query ile sunucu d
 
 Projede modüler bir yapı izlendi:
 
-- Ortak bileşenler `/components` klasöründe toplandı.
+- Ortak componentler `/components` klasöründe toplandı.
 - Sayfa özel bileşenleri ilgili sayfa klasörlerinde tutuldu.
 - UI bileşenleri `/components/ui` altında gruplandı.
 - Tablo gibi karmaşık bileşenler kendi klasörlerinde modüler yapıda oluşturuldu.

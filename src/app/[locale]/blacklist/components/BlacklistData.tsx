@@ -18,13 +18,17 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Plus, Edit } from "lucide-react";
+import { Plus, Edit, Eye } from "lucide-react";
 import BlacklistForm from "./BlacklistForm";
 import { useTranslations } from "next-intl";
 
 export default function BlacklistData({ requestData }: BlacklistDataProps) {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
+  const [isViewOpen, setIsViewOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<BlacklistItem | undefined>(
+    undefined
+  );
+  const [viewItem, setViewItem] = useState<BlacklistItem | undefined>(
     undefined
   );
 
@@ -40,17 +44,27 @@ export default function BlacklistData({ requestData }: BlacklistDataProps) {
 
   const handleAddNew = () => {
     setSelectedItem(undefined);
-    setIsFormOpen(true);
+    setIsEditFormOpen(true);
   };
 
   const handleEdit = (item: BlacklistItem) => {
     setSelectedItem(item);
-    setIsFormOpen(true);
+    setIsEditFormOpen(true);
   };
 
-  const handleFormClose = () => {
-    setIsFormOpen(false);
+  const handleView = (item: BlacklistItem) => {
+    setViewItem(item);
+    setIsViewOpen(true);
+  };
+
+  const handleEditFormClose = () => {
+    setIsEditFormOpen(false);
     setSelectedItem(undefined);
+  };
+
+  const handleViewClose = () => {
+    setIsViewOpen(false);
+    setViewItem(undefined);
   };
 
   const columns = useMemo(() => {
@@ -62,22 +76,33 @@ export default function BlacklistData({ requestData }: BlacklistDataProps) {
 
     baseColumns.unshift({
       id: "actions",
-      header: t("blacklist.edit"),
+      header: t("blacklist.actions"),
       cell: ({ row }) => {
         const item = row.original as BlacklistItem;
         return (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => handleEdit(item)}
-            className="flex items-center gap-1 mx-auto bg-blue-50 hover:bg-blue-100 text-primary border-blue-200"
-          >
-            <Edit className="h-4 w-4" />
-            <span>{t("blacklist.edit")}</span>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handleView(item)}
+              className="flex items-center gap-1 bg-green-50 hover:bg-green-100 text-green-700 border-green-200"
+            >
+              <Eye className="h-4 w-4" />
+              <span>{t("blacklist.view")}</span>
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handleEdit(item)}
+              className="flex items-center gap-1 bg-blue-50 hover:bg-blue-100 text-primary border-blue-200"
+            >
+              <Edit className="h-4 w-4" />
+              <span>{t("blacklist.edit")}</span>
+            </Button>
+          </div>
         );
       },
-      size: 100,
+      size: 220,
     });
 
     return baseColumns;
@@ -120,7 +145,7 @@ export default function BlacklistData({ requestData }: BlacklistDataProps) {
 
       <DataTable columns={columns} data={blacklistData.value} />
 
-      <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
+      <Dialog open={isEditFormOpen} onOpenChange={setIsEditFormOpen}>
         <DialogContent className="sm:max-w-[425px] max-h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
@@ -131,9 +156,46 @@ export default function BlacklistData({ requestData }: BlacklistDataProps) {
           </DialogHeader>
           <BlacklistForm
             selectedItem={selectedItem}
-            onSuccess={handleFormClose}
+            onSuccess={handleEditFormClose}
             db_Id={requestData.db_Id}
           />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isViewOpen} onOpenChange={setIsViewOpen}>
+        <DialogContent className="sm:max-w-[425px] max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{t("blacklist.viewRecord")}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 mt-4">
+            {viewItem && (
+              <div className="space-y-3">
+                {[
+                  "Adi",
+                  "Soy",
+                  "Tcno",
+                  "Dogum_tarihi",
+                  "Kimlik_no",
+                  "Ulke_xml",
+                ].map((field) => (
+                  <div key={field} className="grid grid-cols-2 gap-2">
+                    <div className="font-medium text-gray-700">{field}:</div>
+                    <div>
+                      {viewItem[field as keyof BlacklistItem]?.toString() ||
+                        "-"}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            <Button
+              onClick={handleViewClose}
+              variant="outline"
+              className="w-full mt-4"
+            >
+              {t("blacklist.close")}
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
     </div>

@@ -81,6 +81,10 @@
     "addRecord": "Yeni Kayıt Ekle",
     "editRecord": "Kayıt Düzenle",
     "update": "Güncelle",
-    "add": "Ekle"
+    "add": "Ekle",
+    "view": "Görüntüle",
+    "actions": "İşlemler",
+    "close": "Kapat",
+    "viewRecord": "Kayıt Görüntüle"
   }
 }
