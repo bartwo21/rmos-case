@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema, type LoginFormData } from "../schemas/login.schema";
+import { createLoginSchema, type LoginFormData } from "../schemas/login.schema";
 import { useLogin } from "@/lib/hooks/authHooks";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
@@ -21,6 +21,8 @@ export default function LoginForm() {
   const login = useLogin();
   const [showError, setShowError] = useState(false);
   const t = useTranslations();
+
+  const loginSchema = createLoginSchema(t);
 
   const {
     register,

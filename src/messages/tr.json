@@ -29,7 +29,13 @@
     "passwordPlaceholder": "Şifrenizi giriniz",
     "button": "Giriş Yap",
     "loading": "Giriş yapılıyor...",
-    "error": "Giriş yapılamadı"
+    "error": "Giriş yapılamadı",
+    "errors": {
+      "emailRequired": "Email alanı zorunludur",
+      "emailInvalid": "Geçerli bir email adresi giriniz",
+      "passwordRequired": "Şifre alanı zorunludur",
+      "passwordLength": "Şifre en az 4 karakter olmalıdır"
+    }
   },
   "forecast": {
     "title": "Tahmin",
@@ -85,6 +91,10 @@
     "view": "Görüntüle",
     "actions": "İşlemler",
     "close": "Kapat",
-    "viewRecord": "Kayıt Görüntüle"
+    "viewRecord": "Kayıt Görüntüle",
+    "errors": {
+      "nameRequired": "Ad alanı zorunludur",
+      "surnameRequired": "Soyad alanı zorunludur"
+    }
   }
 }

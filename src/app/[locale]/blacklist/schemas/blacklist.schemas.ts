@@ -1,9 +1,14 @@
 import { z } from "zod";
 
-export const blacklistFormSchema = z.object({
-  Adi: z.string().min(1, "Ad alanı zorunludur"),
-  Soy: z.string().min(1, "Soyad alanı zorunludur"),
-  Aciklama: z.string().optional(),
-});
+export const createBlacklistFormSchema = (t: any) =>
+  z.object({
+    Adi: z
+      .string()
+      .min(1, t("blacklist.errors.nameRequired") || "Name is required"),
+    Soy: z
+      .string()
+      .min(1, t("blacklist.errors.surnameRequired") || "Surname is required"),
+    Aciklama: z.string().optional(),
+  });
 
-export type FormValues = z.infer<typeof blacklistFormSchema>;
+export type FormValues = z.infer<ReturnType<typeof createBlacklistFormSchema>>;

@@ -17,7 +17,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { BlacklistAddUpdateRequest, BlacklistItem } from "@/types/blacklist";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { blacklistService } from "@/services/blacklistService";
-import { FormValues, blacklistFormSchema } from "../schemas/blacklist.schemas";
+import {
+  FormValues,
+  createBlacklistFormSchema,
+} from "../schemas/blacklist.schemas";
 import { useTranslations } from "next-intl";
 import { Spinner } from "@/components/ui/spinner";
 
@@ -36,7 +39,7 @@ export default function BlacklistForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const t = useTranslations();
 
-  const schema = blacklistFormSchema;
+  const schema = createBlacklistFormSchema(t);
 
   const getDefaultValues = () => {
     if (!selectedItem) return { Adi: "", Soy: "", Aciklama: "" };
