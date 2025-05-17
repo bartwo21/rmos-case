@@ -1,6 +1,8 @@
 import { z } from "zod";
 
-export const createBlacklistFormSchema = (t: any) =>
+type Translator = (key: string, params?: Record<string, string>) => string;
+
+export const createBlacklistFormSchema = (t: Translator) =>
   z.object({
     Adi: z
       .string()

@@ -1,6 +1,8 @@
 import { z } from "zod";
 
-export const createLoginSchema = (t: any) =>
+type Translator = (key: string, params?: Record<string, string>) => string;
+
+export const createLoginSchema = (t: Translator) =>
   z.object({
     userName: z
       .string()
